@@ -6,16 +6,19 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import * as React from 'react'
+import * as React from 'react';
 import {StyleSheet} from 'react-native';
+import {AuthContextProvider} from './src/context/AuthContext';
 import LoginScreen from './src/screen/Login';
 import MyStack from './src/stack/Stack';
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <AuthContextProvider>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 }
 

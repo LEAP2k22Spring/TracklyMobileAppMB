@@ -48,6 +48,12 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  	<string>YOUR TEXT</string>
+  	<key>NSLocationAlwaysUsageDescription</key>
+  	<string>YOUR TEXT</string>
+  	<key>NSLocationWhenInUseUsageDescription</key>
+  	<string>YOUR TEXT</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>

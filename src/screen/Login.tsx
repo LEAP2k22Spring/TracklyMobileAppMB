@@ -12,9 +12,18 @@ import {
   TouchableNativeFeedback,
   View,
 } from 'react-native';
-
+import {useAuth} from '../context/AuthContext';
 const LoginScreen = () => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const navigator = useNavigation();
+  const {signInWithEmail, user} = useAuth();
+
+  React.useEffect(() => {
+    if (user) {
+      navigator.navigate('HomeScreen' as never);
+    } else navigator.navigate('LoginScreen' as never);
+  }, [user]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -37,11 +46,13 @@ const LoginScreen = () => {
           </View>
           <View style={styles.containerinput}>
             <TextInput
+              onChangeText={setEmail}
               style={[styles.textInput]}
               keyboardType={'email-address'}
               placeholder="И-Мэйл"
             />
             <TextInput
+              onChangeText={setPassword}
               style={[styles.textInput]}
               keyboardType={'number-pad'}
               placeholder="Нууц үг"
@@ -50,7 +61,7 @@ const LoginScreen = () => {
           <View style={styles.containerbutton}>
             <Pressable
               style={[styles.loginButton, styles.centerView]}
-              onPress={() => navigator.navigate('HomeScreen')}>
+              onPress={() => signInWithEmail({email, password})}>
               <Text style={{color: '#ffff', fontSize: 20, fontWeight: '600'}}>
                 НЭВТРЭХ
               </Text>

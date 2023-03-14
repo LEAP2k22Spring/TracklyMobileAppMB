@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import {Dispatch} from 'react';
 import {
   Alert,
   Image,
@@ -9,9 +10,25 @@ import {
   View,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useAuth} from '../context/AuthContext';
 
-const UserModal = ({isOpen, setIsOpen, isLocation, setIsLocation}) => {
+type ModalPropsType = {
+  isOpen: boolean;
+  setIsOpen: Dispatch<boolean>;
+  isLocation: boolean;
+  setIsLocation: any;
+  data: any;
+};
+const UserModal = ({
+  isOpen,
+  setIsOpen,
+  isLocation,
+  setIsLocation,
+  data,
+}: ModalPropsType) => {
   const navigator = useNavigation();
+  const {logOut} = useAuth();
+
   return (
     <Modal
       animationType="slide"
@@ -30,10 +47,10 @@ const UserModal = ({isOpen, setIsOpen, isLocation, setIsLocation}) => {
               borderRadius: 50,
               resizeMode: 'contain',
             }}
-            source={require('../../assets/profile.png')}
+            source={{uri: data?.img}}
           />
           <Text style={{fontSize: 17, fontWeight: '700'}}>
-            Ганболд Насанбат
+            {data?.firstname} {data?.lastname}
           </Text>
           <Pressable
             style={{position: 'absolute', top: 30, right: 30}}
@@ -62,9 +79,8 @@ const UserModal = ({isOpen, setIsOpen, isLocation, setIsLocation}) => {
           <Pressable
             style={[styles.buttonstyle, {borderWidth: 1}]}
             onPress={() => {
-              setIsOpen(false),
-                setIsLocation(false),
-                navigator.navigate('LoginScreen');
+              setIsOpen(false), setIsLocation(false);
+              logOut();
             }}>
             <Text>Гарах</Text>
           </Pressable>

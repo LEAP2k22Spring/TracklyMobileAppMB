@@ -14,7 +14,7 @@ prepare_react_native_project!
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
-
+permissions_path = '../node_modules/react-native-permissions/ios'
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
@@ -29,6 +29,11 @@ target 'tracklyMbMobile' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app' 
+  pod 'RNFBMessaging', :path => '../node_modules/@react-native-firebase/messaging'
+  pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
+  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
